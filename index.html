@@ -390,6 +390,101 @@
       .chart-panel svg { transform:none!important; }
     }
 
+  
+    /* BE scroll experience enhancement v3 — preserves all page copy and information. */
+    html { scroll-behavior:smooth; }
+    body { overflow-x:clip; }
+    .section { position:relative; isolation:isolate; }
+    .section:before { content:""; position:absolute; z-index:-1; pointer-events:none; width:min(40vw,420px); height:min(40vw,420px); border-radius:50%; opacity:.24; filter:blur(1px); right:-210px; top:12%; background:radial-gradient(circle,rgba(20,127,120,.12),rgba(20,127,120,0) 68%); transform:translate3d(0,calc((.5 - var(--section-progress,.5))*-36px),0); }
+    .section:nth-of-type(even):before { right:auto; left:-225px; background:radial-gradient(circle,rgba(229,181,107,.14),rgba(229,181,107,0) 68%); }
+    .section-head { transform-origin:left center; }
+    .section-head .eyebrow { display:inline-flex; align-items:center; gap:9px; }
+    .section-head .eyebrow:after { content:""; width:26px; height:1px; background:currentColor; opacity:.6; transform:scaleX(0); transform-origin:left; transition:transform .8s cubic-bezier(.2,.7,.2,1) .16s; }
+    .section-head.visible .eyebrow:after { transform:scaleX(1); }
+
+    /* More visible, staggered entrances for every existing content card. */
+    .reveal { opacity:0; transform:translate3d(var(--reveal-x,0px),58px,0) scale(.955) rotateX(2deg); filter:blur(7px); transform-origin:50% 20%; transition:opacity .9s cubic-bezier(.2,.7,.2,1) var(--reveal-delay,0ms),transform .95s cubic-bezier(.2,.7,.2,1) var(--reveal-delay,0ms),filter .85s ease var(--reveal-delay,0ms); }
+    .reveal.visible { opacity:1; transform:translate3d(0,0,0) scale(1) rotateX(0); filter:blur(0); }
+    .skills-grid .skill-card:nth-child(1) { --reveal-delay:0ms; }
+    .skills-grid .skill-card:nth-child(2) { --reveal-delay:90ms; }
+    .skills-grid .skill-card:nth-child(3) { --reveal-delay:180ms; }
+    .skills-grid .skill-card:nth-child(4) { --reveal-delay:270ms; }
+    .skills-grid .skill-card:nth-child(5) { --reveal-delay:360ms; }
+    .skills-grid .skill-card:nth-child(6) { --reveal-delay:450ms; }
+    .swot-grid .swot-card:nth-child(odd) { --reveal-x:-42px; }
+    .swot-grid .swot-card:nth-child(even) { --reveal-x:42px; }
+    .swot-grid .swot-card:nth-child(2) { --reveal-delay:100ms; }
+    .swot-grid .swot-card:nth-child(3) { --reveal-delay:200ms; }
+    .swot-grid .swot-card:nth-child(4) { --reveal-delay:300ms; }
+    .about-modern-grid .background-panel { --reveal-x:-28px; }
+    .about-modern-grid .interests-panel { --reveal-x:28px; --reveal-delay:120ms; }
+    .about-modern-grid .goals-panel { --reveal-x:28px; --reveal-delay:220ms; }
+    .contact-grid .contact-copy { --reveal-x:-32px; }
+    .contact-grid .contact-card { --reveal-x:32px; --reveal-delay:120ms; }
+
+    /* Cards have a gentle depth response as they enter view. */
+    .skill-card,.swot-card,.contact-card,.about-info-panel,.background-panel { transition:box-shadow .45s ease,border-color .45s ease,transform .45s ease; }
+    .skill-card:hover,.swot-card:hover,.contact-card:hover { transform:translateY(-7px); box-shadow:0 24px 52px rgba(20,37,54,.12); border-color:#c9d8d0; }
+    .profile-image { transition:transform 1.2s cubic-bezier(.2,.7,.2,1),filter 1.2s ease; }
+    .profile-panel.visible .profile-image { transform:scale(1.025); }
+
+    /* PO panel: draw the existing radar polygon and animate the existing score bars. */
+    #poChart .radar-result-shape { stroke-dasharray:1500; stroke-dashoffset:1500; fill-opacity:0; transition:stroke-dashoffset 1.5s cubic-bezier(.2,.7,.2,1),fill-opacity 1s ease .5s; }
+    .po-section.scroll-current #poChart .radar-result-shape { stroke-dashoffset:0; fill-opacity:.28; }
+    #poChart .radar-point { opacity:.25; transform-box:fill-box; transform-origin:center; transform:scale(.4); transition:opacity .45s ease,transform .55s cubic-bezier(.2,.7,.2,1); }
+    .po-section.scroll-current #poChart .radar-point { opacity:1; transform:scale(1); }
+    #poChart .radar-point:nth-of-type(2n) { transition-delay:70ms; }
+    #poChart .radar-point:nth-of-type(3n) { transition-delay:130ms; }
+    .po-table .bar i { transform:scaleX(0); transform-origin:left center; transition:transform 1.05s cubic-bezier(.2,.7,.2,1); }
+    .po-section.scroll-current .po-table .bar i { transform:scaleX(1); }
+    .stat-grid .stat { transition:transform .55s cubic-bezier(.2,.7,.2,1),background .55s ease; }
+    .po-section.scroll-current .stat:nth-child(1) { transform:translateY(-3px); }
+    .po-section.scroll-current .stat:nth-child(2) { transform:translateY(-3px); transition-delay:90ms; }
+    .po-section.scroll-current .stat:nth-child(3) { transform:translateY(-3px); transition-delay:180ms; }
+
+    /* Growth section receives a deliberate, cinematic arrival. */
+    .growth-panel { position:relative; overflow:hidden; isolation:isolate; transform:translateY(34px) scale(.975); opacity:.82; transition:transform 1s cubic-bezier(.2,.7,.2,1),opacity 1s ease,box-shadow 1s ease; }
+    .growth-panel:before { content:""; position:absolute; z-index:-1; width:360px; height:360px; border-radius:50%; right:-170px; top:-200px; background:radial-gradient(circle,rgba(229,181,107,.2),transparent 70%); transition:transform 1.2s ease; }
+    .growth-panel.visible { transform:translateY(0) scale(1); opacity:1; box-shadow:0 30px 70px rgba(20,37,54,.2); }
+    .growth-panel.visible:before { transform:scale(1.35); }
+
+    /* Existing project stack gains a quieter card-to-card depth transition. */
+    @media(min-width:1000px) {
+      .projects-grid .project-card { transform:scale(.94) translateY(18px); transform-origin:top center; transition:transform .75s cubic-bezier(.2,.7,.2,1),box-shadow .75s ease; }
+      .projects-grid .project-card.visible { transform:scale(1) translateY(0); }
+      .projects-grid .project-card:nth-child(2) { transition-delay:80ms; }
+      .projects-grid .project-card:nth-child(3) { transition-delay:140ms; }
+      .projects-grid .project-card:nth-child(4) { transition-delay:200ms; }
+      .projects-grid .project-card:nth-child(5) { transition-delay:260ms; }
+      .projects-grid .project-card:nth-child(6) { transition-delay:320ms; }
+      .projects-grid .project-card:nth-child(7) { transition-delay:380ms; }
+    }
+    .hero-grid>.reveal { transition-duration:1.15s; }
+    .hero-card { transition:transform .8s cubic-bezier(.2,.7,.2,1),background .8s ease,box-shadow .8s ease; }
+    .hero-card.visible { transform:translateY(-5px); box-shadow:0 32px 76px rgba(0,0,0,.2); background:rgba(255,255,255,.085); }
+
+    @media(max-width:999px) {
+      .reveal { transform:translate3d(0,38px,0) scale(.98); filter:blur(4px); }
+      .swot-grid .swot-card,.contact-grid .contact-copy,.contact-grid .contact-card,.about-modern-grid .background-panel,.about-modern-grid .interests-panel,.about-modern-grid .goals-panel { --reveal-x:0px; }
+      .growth-panel { transform:translateY(22px) scale(.985); }
+      .po-section.scroll-current #poChart .radar-result-shape { stroke-dashoffset:0; fill-opacity:.22; }
+    }
+    @media(max-width:700px) {
+      .section:before { width:240px; height:240px; right:-155px; }
+      .reveal { transform:translate3d(0,28px,0) scale(.99); filter:blur(2px); }
+      .skills-grid .skill-card,.swot-grid .swot-card,.projects-grid .project-card { --reveal-delay:0ms; }
+      .projects-grid .project-card { transform:none; }
+      .growth-panel { transform:translateY(18px); }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      .reveal,.reveal.visible,.growth-panel,.growth-panel.visible,.profile-image,.skill-card,.swot-card,.contact-card,.hero-card { opacity:1!important; transform:none!important; filter:none!important; transition:none!important; }
+      #poChart .radar-result-shape { stroke-dashoffset:0!important; fill-opacity:.28!important; transition:none!important; }
+      #poChart .radar-point,.po-table .bar i { opacity:1!important; transform:none!important; transition:none!important; }
+      .section:before,.growth-panel:before { display:none!important; }
+    }
+
+    /* BE scroll experience enhancement v3 */
   </style>
 </head>
 <body>
@@ -690,6 +785,34 @@
       },{rootMargin:'-38% 0px -38% 0px',threshold:0});
       document.querySelectorAll('main section[id]').forEach(section=>chapterObserver.observe(section));
     }
+
+    // Scroll-linked section depth and animated radar drawing.
+    const chartSvg=document.getElementById('poChart');
+    if(chartSvg){
+      const chartPolygons=chartSvg.querySelectorAll('polygon');
+      if(chartPolygons.length){
+        chartPolygons[chartPolygons.length-1].classList.add('radar-result-shape');
+      }
+      chartSvg.querySelectorAll('circle').forEach((point,index)=>point.classList.add('radar-point'));
+    }
+    const scrollSections=[...document.querySelectorAll('main section[id]')];
+    let depthFrame=false;
+    function updateScrollDepth(){
+      if(depthFrame)return;
+      depthFrame=true;
+      requestAnimationFrame(()=>{
+        const vh=window.innerHeight||1;
+        scrollSections.forEach(section=>{
+          const rect=section.getBoundingClientRect();
+          const progress=Math.max(0,Math.min(1,(vh-rect.top)/(vh+rect.height)));
+          section.style.setProperty('--section-progress',progress.toFixed(3));
+        });
+        depthFrame=false;
+      });
+    }
+    window.addEventListener('scroll',updateScrollDepth,{passive:true});
+    window.addEventListener('resize',updateScrollDepth);
+    updateScrollDepth();
     document.getElementById('year').textContent=new Date().getFullYear();
   </script>
 </body>
