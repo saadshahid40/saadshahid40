@@ -312,6 +312,84 @@
       .table-wrap { max-width:100%; overflow-x:auto; }
     }
 
+  
+    /* BE scroll-storytelling final pass v2 — intentionally appended after all base component rules. */
+    body { overflow-x:clip; }
+    .hero:before,.hero:after { transform:translate3d(0,var(--hero-drift,0px),0); will-change:transform; }
+    .hero-scroll-cue { position:absolute; z-index:2; bottom:22px; left:50%; display:flex; align-items:center; gap:10px; transform:translateX(-50%); color:#c3d1d5; font-size:9px; font-weight:900; letter-spacing:.18em; }
+    .hero-scroll-cue span { position:relative; display:block; width:1px; height:31px; overflow:hidden; background:rgba(255,255,255,.24); }
+    .hero-scroll-cue span:after { content:""; position:absolute; left:0; top:-14px; width:1px; height:14px; background:var(--gold); animation:cueDrop 1.6s ease-in-out infinite; }
+    @keyframes cueDrop { 0%{transform:translateY(0);opacity:0} 25%{opacity:1} 100%{transform:translateY(45px);opacity:0} }
+
+    /* Stronger viewport reveals: clear entrance, but never alter content or reading order. */
+    .reveal { opacity:0; transform:translate3d(0,42px,0) scale(.985); filter:blur(4px); transition:opacity .85s cubic-bezier(.2,.65,.25,1),transform .85s cubic-bezier(.2,.65,.25,1),filter .85s ease; }
+    .reveal.visible { opacity:1; transform:translate3d(0,0,0) scale(1); filter:blur(0); }
+    .skills-grid .skill-card:nth-child(2),.swot-grid .swot-card:nth-child(2),.projects-grid .project-card:nth-child(2) { transition-delay:.07s; }
+    .skills-grid .skill-card:nth-child(3),.swot-grid .swot-card:nth-child(3),.projects-grid .project-card:nth-child(3) { transition-delay:.13s; }
+    .skills-grid .skill-card:nth-child(4),.swot-grid .swot-card:nth-child(4),.projects-grid .project-card:nth-child(4) { transition-delay:.19s; }
+    .skills-grid .skill-card:nth-child(5),.projects-grid .project-card:nth-child(5) { transition-delay:.25s; }
+    .skills-grid .skill-card:nth-child(6),.projects-grid .project-card:nth-child(6) { transition-delay:.31s; }
+
+    /* Projects become a deliberate vertical scroll story on wide screens. */
+    @media(min-width:1000px) {
+      .projects-story { display:grid; grid-template-columns:minmax(235px,.72fr) minmax(0,1.28fr); gap:clamp(34px,5vw,76px); align-items:start; margin-top:48px; }
+      .projects-story>.section-head { position:sticky; top:116px; align-self:start; max-width:410px; margin:0; padding:16px 0 0; }
+      .projects-story>.section-head .section-title { max-width:390px; font-size:clamp(36px,4.1vw,52px); }
+      .projects-story>.section-head .section-lead { max-width:330px; font-size:15px; }
+      .projects-grid { display:block!important; min-width:0; margin-top:0!important; padding-bottom:18vh; }
+      .projects-grid .project-card { position:sticky; top:118px; margin:0 0 29vh; overflow:hidden; transform-origin:50% 0; box-shadow:0 18px 48px rgba(20,37,54,.10); }
+      .projects-grid .project-card:nth-child(1) { z-index:1; }
+      .projects-grid .project-card:nth-child(2) { z-index:2; }
+      .projects-grid .project-card:nth-child(3) { z-index:3; }
+      .projects-grid .project-card:nth-child(4) { z-index:4; }
+      .projects-grid .project-card:nth-child(5) { z-index:5; }
+      .projects-grid .project-card:nth-child(6) { z-index:6; }
+      .projects-grid .project-card:nth-child(7) { z-index:7; }
+      .projects-grid .project-top { min-height:132px; }
+      .projects-grid .project-no { font-size:48px; }
+      .projects-grid .project-body { padding:25px 27px 23px; }
+      .projects-grid .project-body h3 { font-size:20px; }
+      .projects-grid .project-body p { min-height:0; max-width:680px; font-size:13px; line-height:1.75; }
+      .po-layout { grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr); gap:28px; }
+      .po-layout .chart-panel { position:sticky; top:106px; align-self:start; box-shadow:0 24px 58px rgba(0,0,0,.16); }
+      .chart-panel svg { transition:transform .9s cubic-bezier(.2,.65,.25,1); transform:scale(.94); transform-origin:center; }
+      .chart-panel.visible svg { transform:scale(1); }
+    }
+
+    /* Chapter changes receive a restrained colour cue using the existing palette. */
+    main section[id] { scroll-margin-top:88px; }
+    main section[id] .section-head,.projects-story>.section-head { transition:opacity .45s ease,transform .45s ease; }
+    main section[id].scroll-current .eyebrow { text-shadow:0 0 18px rgba(20,127,120,.14); }
+    .project-card .project-top:after { transition:transform .9s cubic-bezier(.2,.65,.25,1); }
+    .project-card.visible .project-top:after { transform:scale(1.22) translate(-7px,8px); }
+
+    @media(max-width:999px) {
+      .projects-story { display:block; margin-top:34px; }
+      .projects-story>.section-head { position:relative; top:auto; margin:0 0 27px; padding:0; }
+      .projects-grid { display:grid!important; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:0!important; padding-bottom:0; }
+      .projects-grid .project-card { position:relative; top:auto; margin:0; }
+      .projects-grid .project-top { min-height:100px; }
+      .projects-grid .project-body { padding:19px; }
+      .po-layout { grid-template-columns:minmax(0,1fr); }
+      .po-layout .chart-panel { position:relative; top:auto; }
+    }
+    @media(max-width:700px) {
+      .hero-scroll-cue { bottom:15px; }
+      .projects-grid { grid-template-columns:1fr; }
+      .projects-grid .project-card { margin:0; }
+      .projects-grid .project-top { min-height:88px; }
+      .projects-grid .project-body { padding:18px; }
+      .reveal { transform:translate3d(0,24px,0) scale(.99); filter:blur(2px); }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      .hero:before,.hero:after { transform:none!important; }
+      .hero-scroll-cue span:after { animation:none!important; }
+      .reveal,.reveal.visible { opacity:1!important; transform:none!important; filter:none!important; transition:none!important; }
+      .projects-grid .project-card,.projects-grid .project-card:hover { position:relative!important; top:auto!important; margin:0 0 16px!important; transform:none!important; transition:none!important; }
+      .projects-story>.section-head,.po-layout .chart-panel { position:static!important; }
+      .chart-panel svg { transform:none!important; }
+    }
+
   </style>
 </head>
 <body>
@@ -348,7 +426,8 @@
           <div class="hero-numbers"><div><strong>12</strong><small>Programme Outcomes</small></div><div><strong>3</strong><small>POs at 100%</small></div><div><strong>7+</strong><small>Project areas</small></div></div>
         </aside>
       </div>
-    </section>
+    
+      <a class="hero-scroll-cue" href="#about" aria-label="Scroll to About section"><span aria-hidden="true"></span><small>SCROLL TO EXPLORE</small></a></section>
 
     <!-- ABOUT: profile image and introduction -->
     <section class="section" id="about">
@@ -591,6 +670,26 @@
       const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}}),{threshold:.12});
       document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
     } else { document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible')); }
+    // Visible scroll storytelling: gentle hero drift and active chapter tracking.
+    const heroSection=document.querySelector('.hero');
+    let scrollTick=false;
+    window.addEventListener('scroll',()=>{
+      if(scrollTick)return;
+      scrollTick=true;
+      requestAnimationFrame(()=>{
+        if(heroSection){
+          const drift=Math.min(Math.max(window.scrollY*.12,0),76);
+          heroSection.style.setProperty('--hero-drift',drift+'px');
+        }
+        scrollTick=false;
+      });
+    },{passive:true});
+    if('IntersectionObserver' in window){
+      const chapterObserver=new IntersectionObserver(entries=>{
+        entries.forEach(entry=>entry.target.classList.toggle('scroll-current',entry.isIntersecting));
+      },{rootMargin:'-38% 0px -38% 0px',threshold:0});
+      document.querySelectorAll('main section[id]').forEach(section=>chapterObserver.observe(section));
+    }
     document.getElementById('year').textContent=new Date().getFullYear();
   </script>
 </body>
