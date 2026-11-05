@@ -139,6 +139,44 @@
     .skill-symbol { width:39px; height:39px; display:grid; place-items:center; border-radius:12px; background:var(--teal-light); color:var(--teal); font-weight:950; font-size:16px; }
     .skill-card h3 { margin:15px 0 5px; color:var(--navy); font-size:16px; letter-spacing:-.025em; }
     .skill-card p { min-height:40px; margin:0 0 14px; color:var(--muted); font-size:11px; }
+
+    /* Apple-inspired scroll storytelling: sticky project chapter and PO visual */
+    .projects-story { display:grid; grid-template-columns:minmax(230px,.72fr) minmax(0,1.28fr); gap:clamp(28px,5vw,58px); align-items:start; margin-top:40px; }
+    .projects-story>.section-head { position:sticky; top:108px; align-self:start; margin:0; }
+    .projects-story .section-head .section-title { max-width:390px; }
+    .projects-story .section-head .section-lead { max-width:350px; }
+    .projects-grid { grid-template-columns:1fr; gap:19px; margin-top:0; min-width:0; }
+    .project-card { transform:translateY(0); transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s,border-color .3s; }
+    .project-card:hover { transform:translateY(-5px) scale(1.006); border-color:#c9d8d0; }
+    .project-top { min-height:112px; }
+    .project-body { padding:24px 25px; }
+    .project-body p { max-width:700px; }
+    .projects-grid .project-card:nth-child(2) { transition-delay:.04s; }
+    .projects-grid .project-card:nth-child(3) { transition-delay:.07s; }
+    .projects-grid .project-card:nth-child(4) { transition-delay:.1s; }
+    .projects-grid .project-card:nth-child(5) { transition-delay:.04s; }
+    .projects-grid .project-card:nth-child(6) { transition-delay:.07s; }
+    .projects-grid .project-card:nth-child(7) { transition-delay:.1s; }
+    .chart-panel { position:sticky; top:104px; }
+    .section-head.reveal { transition-delay:.03s; }
+    .skill-card,.swot-card,.project-card,.about-info-panel,.background-panel,.growth-panel,.contact-card { will-change:transform,opacity; }
+    @media(max-width:950px) {
+      .projects-story { grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:25px; }
+      .projects-story>.section-head { top:96px; }
+      .chart-panel { position:static; }
+    }
+    @media(max-width:700px) {
+      .projects-story { display:block; margin-top:30px; }
+      .projects-story>.section-head { position:relative; top:auto; margin-bottom:25px; }
+      .projects-grid { grid-template-columns:1fr; gap:15px; }
+      .project-top { min-height:90px; }
+      .project-body { padding:19px; }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      .project-card,.projects-grid .project-card { transition:none!important; transform:none!important; }
+      .projects-story>.section-head,.chart-panel { position:static; }
+    }
+
     /* Projects */
     .projects-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:40px; }
     .project-card { overflow:hidden; border:1px solid var(--line); border-radius:19px; background:var(--white); transition:transform .2s,box-shadow .2s; }
@@ -315,7 +353,7 @@
     <!-- ABOUT: profile image and introduction -->
     <section class="section" id="about">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">01 / Profile</p><h2 class="section-title">A little about me</h2><p class="section-lead">I am a 26-year-old Mechatronics Engineering student from Pakistan. I enjoy working with MATLAB, ROS2 and engineering projects that combine hardware, software and practical problem-solving.</p></div>
+        <div class="section-head reveal"><p class="eyebrow">01 / Profile</p><h2 class="section-title">A little about me</h2><p class="section-lead">I am a 26-year-old Mechatronics Engineering student from Pakistan. I enjoy working with MATLAB, ROS2 and engineering projects that combine hardware, software and practical problem-solving.</p></div>
         <div class="about-modern-grid">
           <article class="background-panel reveal">
             <div class="about-card-heading"><span class="about-card-index">01</span><h3>Background</h3></div>
@@ -367,7 +405,7 @@
     <!-- SKILLS -->
     <section class="section skills-section" id="skills">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">02 / Technical toolkit</p><h2 class="section-title">Skills & technologies</h2><p class="section-lead">Tools and technologies I have used or explored through coursework, laboratory work and engineering projects. This reflects academic and project experience.</p></div>
+        <div class="section-head reveal"><p class="eyebrow">02 / Technical toolkit</p><h2 class="section-title">Skills & technologies</h2><p class="section-lead">Tools and technologies I have used or explored through coursework, laboratory work and engineering projects. This reflects academic and project experience.</p></div>
         <div class="skills-grid">
           <article class="skill-card reveal"><div class="skill-symbol">⌘</div><h3>Robotics & Navigation</h3><p>Robot platforms, mapping and autonomous movement.</p><div class="tags"><span>ROS2</span><span>TurtleBot3</span><span>SLAM</span><span>Nav2</span><span>Gazebo</span></div></article>
           <article class="skill-card reveal"><div class="skill-symbol">⌁</div><h3>Embedded Systems & IoT</h3><p>Microcontrollers, sensor integration and connected prototypes.</p><div class="tags"><span>ESP32</span><span>Arduino</span><span>Blynk IoT</span><span>Sensors</span></div></article>
@@ -382,7 +420,8 @@
     <!-- PROJECTS -->
     <section class="section" id="projects">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">03 / Selected work</p><h2 class="section-title">Engineering projects</h2><p class="section-lead">A selection of academic and practical work that has helped me connect mechanical, electronic and software concepts.</p></div>
+        <div class="projects-story">
+          <div class="section-head reveal"><p class="eyebrow">03 / Selected work</p><h2 class="section-title">Engineering projects</h2><p class="section-lead">A selection of academic and practical work that has helped me connect mechanical, electronic and software concepts.</p></div>
         <div class="projects-grid">
           <article class="project-card reveal"><div class="project-top"><span class="project-category">Robotics · Automation</span><span class="project-no">01</span></div><div class="project-body"><h3>Robotic Arm Pick-and-Place</h3><p>An academic robotics project focused on using a robotic arm to perform pick-and-place operations and understand coordinated mechanical and control functions.</p><div class="tags"><span>Robotics</span><span>Control</span><span>Automation</span></div><div class="project-foot"><span>Academic project</span><span>01 / 07</span></div></div></article>
           <article class="project-card reveal"><div class="project-top"><span class="project-category">Mobile Robotics</span><span class="project-no">02</span></div><div class="project-body"><h3>Boe-Bot Route Following & Obstacle Detection</h3><p>A Boe-Bot followed a selected route and used an ultrasonic sensor to detect an obstacle and stop automatically when a hurdle was detected.</p><div class="tags"><span>Boe-Bot</span><span>Ultrasonic Sensor</span><span>Embedded Control</span></div><div class="project-foot"><span>Academic project</span><span>02 / 07</span></div></div></article>
@@ -392,13 +431,14 @@
           <article class="project-card reveal"><div class="project-top"><span class="project-category">CAD · Mechanical Design</span><span class="project-no">06</span></div><div class="project-body"><h3>Aluminium Can Crusher Modelling</h3><p>Used AutoCAD to model an aluminium can crusher, developing familiarity with mechanical design and representing an engineering mechanism.</p><div class="tags"><span>AutoCAD</span><span>3D Modelling</span><span>Mechanical Design</span></div><div class="project-foot"><span>Academic project</span><span>06 / 07</span></div></div></article>
           <article class="project-card reveal"><div class="project-top"><span class="project-category">Final-Year Project · AI</span><span class="project-no">07</span></div><div class="project-body"><h3>Skin Ulcer Classification & Detection</h3><p>Current final-year project: “A Deep Learning-Based Intelligent Vision System for Skin Ulcer Classification and Detection using U-Net.” The work explores deep learning for medical image analysis.</p><div class="tags"><span>Deep Learning</span><span>U-Net</span><span>Computer Vision</span></div><div class="project-foot"><span class="status">● In progress</span><span>07 / 07</span></div></div></article>
         </div>
+        </div>
       </div>
     </section>
 
     <!-- PROGRAMME OUTCOME RESULTS -->
     <section class="section po-section" id="po">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">04 / Programme outcomes</p><h2 class="section-title">Programme Outcome attainment</h2><p class="section-lead">My recorded attainment across the 12 official APU Programme Outcomes, based on my individual PO report card.</p></div>
+        <div class="section-head reveal"><p class="eyebrow">04 / Programme outcomes</p><h2 class="section-title">Programme Outcome attainment</h2><p class="section-lead">My recorded attainment across the 12 official APU Programme Outcomes, based on my individual PO report card.</p></div>
         <div class="po-layout">
           <div class="chart-panel reveal"><div class="panel-label">PO profile · 0 to 100%</div><svg id="poChart" viewBox="0 0 560 510" role="img" aria-label="Radar chart showing recorded attainment for PO1 to PO12"></svg><p class="chart-caption">Each axis represents one Programme Outcome. A point closer to the outer ring indicates a higher recorded attainment.</p></div>
           <div class="results-panel reveal"><h3>Attainment at a glance</h3><div class="stat-grid"><div class="stat"><strong>100%</strong><small>PO1 · PO10 · PO12</small></div><div class="stat"><strong>66.67%</strong><small>PO4 · PO6 · PO7 · PO8</small></div><div class="stat"><strong>0%</strong><small>PO2</small></div></div>
@@ -412,7 +452,7 @@
     <!-- SWOT -->
     <section class="section swot-section" id="swot">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">05 / Personal reflection</p><h2 class="section-title">SWOT analysis</h2><p class="section-lead">A reflection on my current abilities, areas for improvement, opportunities and external challenges as an aspiring Mechatronics Engineer.</p></div>
+        <div class="section-head reveal"><p class="eyebrow">05 / Personal reflection</p><h2 class="section-title">SWOT analysis</h2><p class="section-lead">A reflection on my current abilities, areas for improvement, opportunities and external challenges as an aspiring Mechatronics Engineer.</p></div>
         <div class="swot-grid">
           <article class="swot-card reveal" data-letter="S"><h3><span>S</span> Strengths</h3><ul>
             <li><strong>Engineering knowledge (PO1 – 100%):</strong> Apply engineering concepts through robotic arm, Boe-Bot and TurtleBot3 projects.</li>
@@ -451,7 +491,7 @@
     <!-- CONCLUSION / DEVELOPMENT -->
     <section class="section" id="growth">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">06 / Looking ahead</p><h2 class="section-title">Learning, improving, contributing</h2><p class="section-lead">My reflections and next steps as I prepare for professional engineering work.</p></div>
+        <div class="section-head reveal"><p class="eyebrow">06 / Looking ahead</p><h2 class="section-title">Learning, improving, contributing</h2><p class="section-lead">My reflections and next steps as I prepare for professional engineering work.</p></div>
         <div class="growth-panel reveal"><div><h3>Learn continuously.<br>Build responsibly.</h3><p>This portfolio has helped me reflect on my development as a Mechatronics Engineering student. My studies, practical projects, conference experience and PO results have shown me the value of engineering knowledge, professional conduct and continuous learning. I plan to strengthen problem analysis, engineering design, practical tool use, teamwork and project planning through further projects, laboratory activities, industry experience and independent study. My aim is to become a responsible and adaptable engineer who contributes to innovative, safe and sustainable solutions.</p></div><div class="growth-mark" aria-hidden="true">SS</div></div>
       </div>
     </section>
@@ -459,7 +499,7 @@
     <!-- CONTACT -->
     <section class="section" id="contact">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">07 / Get in touch</p><h2 class="section-title">Contact</h2><p class="section-lead">Thank you for visiting my portfolio. I welcome opportunities to exchange ideas and learn from people working across mechatronics, robotics, automation and intelligent systems.</p></div>
+        <div class="section-head reveal"><p class="eyebrow">07 / Get in touch</p><h2 class="section-title">Contact</h2><p class="section-lead">Thank you for visiting my portfolio. I welcome opportunities to exchange ideas and learn from people working across mechatronics, robotics, automation and intelligent systems.</p></div>
         <div class="contact-grid">
           <div class="contact-copy reveal"><p>I am interested in connecting with fellow students, engineering professionals and organisations to learn more about practical engineering work and future opportunities.</p><p>Feel free to contact me by email or phone.</p></div>
           <div class="contact-card reveal"><h3>Saad Shahid</h3><p>Mechatronics Engineering · APU, Malaysia</p>
