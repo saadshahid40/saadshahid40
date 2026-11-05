@@ -88,6 +88,11 @@
     .fact { padding:13px 15px; border:1px solid var(--line); border-radius:13px; background:var(--white); }
     .fact small { display:block; color:var(--muted); font-size:9px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
     .fact strong { display:block; margin-top:3px; color:var(--navy); font-size:12px; }
+    .fact strong { line-height:1.45; overflow-wrap:anywhere; }
+    .experience-card { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:10px; padding:13px 15px; border:1px solid var(--line); border-radius:13px; background:var(--white); }
+    .experience-card small { display:block; color:var(--muted); font-size:9px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
+    .experience-card strong { display:block; margin-top:3px; color:var(--navy); font-size:13px; }
+    .experience-card span { color:var(--muted); font-size:11px; font-weight:800; text-align:right; }
     .interest-title { margin:24px 0 10px; color:var(--navy); font-size:10px; font-weight:900; letter-spacing:.14em; text-transform:uppercase; }
     .pills,.tags { display:flex; flex-wrap:wrap; gap:7px; }
     .pills span,.tags span { padding:6px 9px; border:1px solid #dfe5df; border-radius:8px; background:#fff; color:#52636b; font-size:10px; font-weight:800; }
@@ -195,6 +200,11 @@
       .growth-mark { width:68px; height:68px; }
       .contact-grid { gap:15px; }
     }
+    @media(max-width:520px) {
+      .about-facts { grid-template-columns:1fr; }
+      .experience-card { align-items:flex-start; flex-direction:column; gap:4px; }
+      .experience-card span { text-align:left; }
+    }
     @media(prefers-reduced-motion:reduce) {
       *,*:before,*:after { scroll-behavior:auto!important; transition-duration:.01ms!important; animation-duration:.01ms!important; }
       .reveal { opacity:1; transform:none; }
@@ -247,10 +257,20 @@
             <div class="profile-caption"><div><strong>Muhammad Saad Shahid</strong><span>Mechatronics Engineering Student</span></div><span class="profile-badge">APU · Malaysia</span></div>
           </div>
           <div class="about-copy reveal">
-            <p>I am a <strong>Mechatronics Engineering student at Asia Pacific University of Technology & Innovation (APU), Malaysia</strong>, with a strong interest in robotics, embedded systems, control engineering and machine vision. Throughout my degree, I have developed my engineering knowledge through academic studies and practical projects.</p>
+            <p>I am a <strong>26-year-old Mechatronics Engineering student from Pakistan</strong>, pursuing a Bachelor of Mechatronics Engineering at Asia Pacific University of Technology & Innovation (APU), Malaysia, from 2022 to 2027. I enjoy working with MATLAB and ROS2 and taking part in engineering projects, especially in robotics, embedded systems, control engineering and machine vision.</p>
             <p>My experience includes a robotic arm pick-and-place system and a Boe-Bot robot that followed a selected route and used an ultrasonic sensor to detect obstacles and stop automatically. I have also worked with TurtleBot3 and ROS2 for mapping and autonomous navigation, developed a Smart Pedestrian Crosswalk prototype using ESP32 and Blynk IoT, and participated in PLC-based automation, AutoCAD modelling, MATLAB and machine vision projects.</p>
             <p>For my final-year project, I am working on <strong>“A Deep Learning-Based Intelligent Vision System for Skin Ulcer Classification and Detection using U-Net.”</strong> This work is helping me explore deep learning and computer vision further. I aim to keep improving my technical knowledge, independent learning, critical thinking and professional skills.</p>
-            <div class="about-facts"><div class="fact"><small>Study area</small><strong>Mechatronics Engineering</strong></div><div class="fact"><small>University</small><strong>Asia Pacific University (APU)</strong></div><div class="fact"><small>Main interests</small><strong>Robotics · Control · Vision</strong></div><div class="fact"><small>Current focus</small><strong>Deep Learning · U-Net</strong></div></div>
+            <div class="about-facts">
+              <div class="fact"><small>Degree</small><strong>Bachelor of Mechatronics Engineering</strong></div>
+              <div class="fact"><small>University</small><strong>Asia Pacific University (APU), Malaysia</strong></div>
+              <div class="fact"><small>Study period</small><strong>2022 – 2027</strong></div>
+              <div class="fact"><small>Main interests</small><strong>MATLAB · ROS2 · Engineering Projects</strong></div>
+              <div class="fact"><small>Current focus</small><strong>Deep Learning · U-Net</strong></div>
+            </div>
+            <div class="experience-card">
+              <div><small>Internship experience</small><strong>APCORE</strong></div>
+              <span>17 September 2025 – 2 January 2026</span>
+            </div>
             <div class="interest-title">Areas I am interested in</div>
             <div class="pills"><span>Robotics</span><span>Embedded Systems</span><span>Control Engineering</span><span>Machine Vision</span><span>Automation</span><span>Artificial Intelligence</span></div>
           </div>
